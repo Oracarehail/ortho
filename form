@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .summary {
+            margin-top: 30px;
+            border-top: 2px solid #007bff;
+            padding-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Survey Form</h2>
+    <form id="surveyForm">
+        <!-- Questions will be dynamically inserted here -->
+    </form>
+
+    <!-- Button to generate summary -->
+    <button type="button" onclick="showSummary()">Review Answers</button>
+
+    <!-- Section to display summary before submission -->
+    <div id="summary" class="summary" style="display:none;">
+        <h3>Review Your Answers:</h3>
+        <div id="summaryContent"></div>
+        <button onclick="copySummary()">Copy Summary</button>
+    </div>
+
+    <script>
+        // Questions data
+        const questions = [
+            {
+                question: "What is your favorite color?",
+                options: ["Red", "Blue", "Green", "Yellow"]
+            },
+            {
+                question: "Which days are you available?",
+                options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+            },
+            {
+                question: "What is your preferred programming language?",
+                options: ["Python", "JavaScript", "Java", "C++"]
+            }
+        ];
+
+        // Dynamically generate the form
+        const form = document.getElementById('surveyForm');
+        questions.forEach((item, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            
+            // Add question text
+            const questionText = document.createElement('p');
+            questionText.textContent = `${index + 1}. ${item.question}`;
+            questionDiv.appendChild(questionText);
+            
+            // Add options
+            item.options.forEach(option => {
+                const label = document.createElement('label');
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `question${index}`;
+                input.value = option;
+                label.appendChild(input);
+                label.append(` ${option}`);
+                questionDiv.appendChild(label);
+                questionDiv.appendChild(document.createElement('br'));
+            });
+
+            form.appendChild(questionDiv);
+        });
+
+        // Function to show the summary
+        function showSummary() {
+            const summaryDiv = document.getElementById('summary');
+            const summaryContent = document.getElementById('summaryContent');
+            summaryContent.innerHTML = '';
+
+            // Collect answers
+            questions.forEach((item, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                const answer = selectedOption ? selectedOption.value : "No answer selected";
+                
+                const summaryItem = document.createElement('p');
+                summaryItem.textContent = `${index + 1}. ${item.question}: ${answer}`;
+                summaryContent.appendChild(summaryItem);
+            });
+
+            summaryDiv.style.display = 'block';
+        }
+
+        // Function to copy the summary
+        function copySummary() {
+            const summaryContent = document.getElementById('summaryContent').textContent;
+            navigator.clipboard.writeText(summaryContent).then(() => {
+                alert("Summary copied to clipboard!");
+            });
+        }
+    </script>
+
+</body>
+</html>
