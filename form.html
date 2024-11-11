@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survey Form</title>
+    <title>Ortho Assessment Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,15 +25,104 @@
 </head>
 <body>
 
-    <h2>Survey Form</h2>
+    <h2>Ortho Assessment Form</h2>
     <form id="surveyForm">
-        <!-- Questions will be dynamically inserted here -->
+        <!-- File Number -->
+        <div class="question">
+            <label for="fileNumber">File Number:</label><br>
+            <input type="text" id="fileNumber" name="fileNumber">
+        </div>
+
+        <!-- Skeletal Sagittal Relationship -->
+        <div class="question">
+            <label for="skeletalSagittal">Skeletal Sagittal Relationship:</label><br>
+            <select id="skeletalSagittal" name="skeletalSagittal">
+                <option value="">Select an option</option>
+                <option value="Skeletal Class I">Skeletal Class I</option>
+                <option value="Skeletal Class II">Skeletal Class II</option>
+                <option value="Skeletal Class III">Skeletal Class III</option>
+            </select>
+        </div>
+
+        <!-- Dental Sagittal Relationship -->
+        <div class="question">
+            <label for="dentalSagittal">Dental Sagittal Relationship:</label><br>
+            <select id="dentalSagittal" name="dentalSagittal">
+                <option value="">Select an option</option>
+                <option value="Class I">Class I</option>
+                <option value="Class II relationship">Class II relationship</option>
+                <option value="Class III relationship">Class III relationship</option>
+            </select>
+        </div>
+
+        <!-- Incisors Relationship -->
+        <div class="question">
+            <label for="incisorsRelationship">Incisors Relationship:</label><br>
+            <select id="incisorsRelationship" name="incisorsRelationship">
+                <option value="">Select an option</option>
+                <option value="Anterior crossbite">Anterior crossbite</option>
+                <option value="Anterior crossbite with shift">Anterior crossbite with shift</option>
+                <option value="Large overjet">Large overjet</option>
+            </select>
+        </div>
+
+        <!-- Vertical Relationship -->
+        <div class="question">
+            <label>Vertical Relationship:</label><br>
+            <input type="checkbox" name="vertical" value="Anterior open bite"> Anterior open bite<br>
+            <input type="checkbox" name="vertical" value="Lateral open bite (right or left)"> Lateral open bite (right or left)<br>
+            <input type="checkbox" name="vertical" value="Bilateral open bite"> Bilateral open bite<br>
+            <input type="checkbox" name="vertical" value="Deep bite"> Deep bite<br>
+            <input type="checkbox" name="vertical" value="Deep bite with gingival contact"> Deep bite with gingival contact<br>
+        </div>
+
+        <!-- Transverse Relationship -->
+        <div class="question">
+            <label>Transverse Relationship:</label><br>
+            <input type="checkbox" name="transverse" value="Cross bite"> Cross bite<br>
+            <input type="checkbox" name="transverse" value="Crossbite with lateral shift"> Crossbite with lateral shift<br>
+            <input type="checkbox" name="transverse" value="Scissor bite"> Scissor bite<br>
+            <input type="checkbox" name="transverse" value="Midline discrepancy"> Midline discrepancy<br>
+        </div>
+
+        <!-- Incisors Inclination -->
+        <div class="question">
+            <label>Incisors Inclination:</label><br>
+            <input type="checkbox" name="inclination" value="Proclined upper incisors"> Proclined upper incisors<br>
+            <input type="checkbox" name="inclination" value="Retrocline upper incisors"> Retrocline upper incisors<br>
+            <input type="checkbox" name="inclination" value="Protruded upper incisors"> Protruded upper incisors<br>
+            <input type="checkbox" name="inclination" value="Retruded upper incisors"> Retruded upper incisors<br>
+            <input type="checkbox" name="inclination" value="Proclined lower incisors"> Proclined lower incisors<br>
+            <input type="checkbox" name="inclination" value="Retroclined lower incisors"> Retroclined lower incisors<br>
+        </div>
+
+        <!-- Space Analysis -->
+        <div class="question">
+            <label>Space Analysis:</label><br>
+            <input type="checkbox" name="space" value="Crowding"> Crowding<br>
+            <input type="checkbox" name="space" value="Spacing"> Spacing<br>
+            <input type="checkbox" name="space" value="Peg shaped lateral"> Peg shaped lateral<br>
+        </div>
+
+        <!-- Others -->
+        <div class="question">
+            <label>Others:</label><br>
+            <input type="checkbox" name="others" value="Congenitally missing incisor"> Congenitally missing incisor<br>
+            <input type="checkbox" name="others" value="Congenitally missing premolar"> Congenitally missing premolar<br>
+            <input type="checkbox" name="others" value="Supernumerary tooth"> Supernumerary tooth<br>
+            <input type="checkbox" name="others" value="Enamel distortion"> Enamel distortion<br>
+            <input type="checkbox" name="others" value="Impacted Canine"> Impacted Canine<br>
+        </div>
+
+        <!-- Treatment Plan -->
+        <div class="question">
+            <label for="treatmentPlan">Treatment Plan:</label><br>
+            <textarea id="treatmentPlan" name="treatmentPlan" rows="4" cols="50"></textarea>
+        </div>
+
+        <button type="button" onclick="showSummary()">Review Answers</button>
     </form>
 
-    <!-- Button to generate summary -->
-    <button type="button" onclick="showSummary()">Review Answers</button>
-
-    <!-- Section to display summary before submission -->
     <div id="summary" class="summary" style="display:none;">
         <h3>Review Your Answers:</h3>
         <div id="summaryContent"></div>
@@ -41,69 +130,18 @@
     </div>
 
     <script>
-        // Questions data
-        const questions = [
-            {
-                question: "What is your favorite color?",
-                options: ["Red", "Blue", "Green", "Yellow"]
-            },
-            {
-                question: "Which days are you available?",
-                options: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-            },
-            {
-                question: "What is your preferred programming language?",
-                options: ["Python", "JavaScript", "Java", "C++"]
-            }
-        ];
-
-        // Dynamically generate the form
-        const form = document.getElementById('surveyForm');
-        questions.forEach((item, index) => {
-            const questionDiv = document.createElement('div');
-            questionDiv.className = 'question';
-            
-            // Add question text
-            const questionText = document.createElement('p');
-            questionText.textContent = `${index + 1}. ${item.question}`;
-            questionDiv.appendChild(questionText);
-            
-            // Add options
-            item.options.forEach(option => {
-                const label = document.createElement('label');
-                const input = document.createElement('input');
-                input.type = 'radio';
-                input.name = `question${index}`;
-                input.value = option;
-                label.appendChild(input);
-                label.append(` ${option}`);
-                questionDiv.appendChild(label);
-                questionDiv.appendChild(document.createElement('br'));
-            });
-
-            form.appendChild(questionDiv);
-        });
-
-        // Function to show the summary
         function showSummary() {
             const summaryDiv = document.getElementById('summary');
             const summaryContent = document.getElementById('summaryContent');
+            const formData = new FormData(document.getElementById('surveyForm'));
+            
             summaryContent.innerHTML = '';
-
-            // Collect answers
-            questions.forEach((item, index) => {
-                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
-                const answer = selectedOption ? selectedOption.value : "No answer selected";
-                
-                const summaryItem = document.createElement('p');
-                summaryItem.textContent = `${index + 1}. ${item.question}: ${answer}`;
-                summaryContent.appendChild(summaryItem);
-            });
-
+            for (let [key, value] of formData.entries()) {
+                summaryContent.innerHTML += `<p>${key}: ${value}</p>`;
+            }
             summaryDiv.style.display = 'block';
         }
-
-        // Function to copy the summary
+        
         function copySummary() {
             const summaryContent = document.getElementById('summaryContent').textContent;
             navigator.clipboard.writeText(summaryContent).then(() => {
@@ -111,6 +149,5 @@
             });
         }
     </script>
-
 </body>
 </html>
