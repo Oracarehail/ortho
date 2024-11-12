@@ -3,55 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ortho Assessment Form</title>
+    <title>Step-by-Step Ortho Assessment Form</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
             padding: 20px;
-        }
-        h2 {
-            text-align: center;
-            color: #007bff;
+            display: flex;
+            justify-content: center;
         }
         .container {
-            display: flex;
-            justify-content: space-between;
-            margin: 20px auto;
-            gap: 20px;
-        }
-        .section {
             background-color: #ffffff;
             border-radius: 10px;
             padding: 20px;
+            width: 400px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 30%;
+            text-align: center;
+        }
+        h2 {
+            color: #007bff;
         }
         .question {
-            margin-bottom: 20px;
+            display: none;
+        }
+        .active {
+            display: block;
         }
         label {
             font-weight: bold;
-            color: #333;
         }
-        select, input[type="text"], textarea {
+        input[type="text"], select, textarea {
             width: 100%;
             padding: 8px;
-            margin-top: 5px;
+            margin-top: 10px;
             border-radius: 5px;
             border: 1px solid #ddd;
         }
         textarea {
             resize: vertical;
         }
-        input[type="checkbox"] {
-            margin-right: 10px;
-        }
         button {
             background-color: #007bff;
             color: white;
-            padding: 10px 15px;
+            padding: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -60,134 +55,125 @@
         button:hover {
             background-color: #0056b3;
         }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
         .summary {
-            margin-top: 30px;
-            border-top: 2px solid #007bff;
-            padding-top: 20px;
+            display: none;
+            text-align: left;
             background-color: #ffffff;
-            border-radius: 10px;
             padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 <body>
 
+<div class="container">
     <h2>Ortho Assessment Form</h2>
-    <div class="container">
-        <!-- Section 1: Patient Information & Relationships -->
-        <div class="section">
-            <h3>Patient Info & Relationships</h3>
-
-            <div class="question">
-                <label for="fileNumber">File Number:</label>
-                <input type="text" id="fileNumber" name="fileNumber">
-            </div>
-
-            <div class="question">
-                <label>Skeletal Sagittal Relationship:</label>
-                <select id="skeletalSagittal" name="skeletalSagittal">
-                    <option value="">Select an option</option>
-                    <option value="Skeletal Class I">Skeletal Class I</option>
-                    <option value="Skeletal Class II">Skeletal Class II</option>
-                    <option value="Skeletal Class III">Skeletal Class III</option>
-                </select>
-            </div>
-
-            <div class="question">
-                <label>Dental Sagittal Relationship:</label>
-                <select id="dentalSagittal" name="dentalSagittal">
-                    <option value="">Select an option</option>
-                    <option value="Class I">Class I</option>
-                    <option value="Class II relationship">Class II relationship</option>
-                    <option value="Class III relationship">Class III relationship</option>
-                </select>
-            </div>
-
-            <div class="question">
-                <label>Incisors Relationship:</label>
-                <select id="incisorsRelationship" name="incisorsRelationship">
-                    <option value="">Select an option</option>
-                    <option value="Anterior crossbite">Anterior crossbite</option>
-                    <option value="Anterior crossbite with shift">Anterior crossbite with shift</option>
-                    <option value="Large overjet">Large overjet</option>
-                </select>
-            </div>
+    <form id="surveyForm">
+        <!-- Question 1 -->
+        <div class="question active" id="question1">
+            <label for="fileNumber">File Number:</label>
+            <input type="text" id="fileNumber" name="fileNumber">
         </div>
 
-        <!-- Section 2: Vertical & Transverse Relationship -->
-        <div class="section">
-            <h3>Vertical & Transverse Relationship</h3>
-
-            <div class="question">
-                <label>Vertical Relationship:</label><br>
-                <input type="checkbox" name="vertical" value="Anterior open bite"> Anterior open bite<br>
-                <input type="checkbox" name="vertical" value="Lateral open bite (right or left)"> Lateral open bite (right or left)<br>
-                <input type="checkbox" name="vertical" value="Bilateral open bite"> Bilateral open bite<br>
-                <input type="checkbox" name="vertical" value="Deep bite"> Deep bite<br>
-                <input type="checkbox" name="vertical" value="Deep bite with gingival contact"> Deep bite with gingival contact<br>
-            </div>
-
-            <div class="question">
-                <label>Transverse Relationship:</label><br>
-                <input type="checkbox" name="transverse" value="Cross bite"> Cross bite<br>
-                <input type="checkbox" name="transverse" value="Crossbite with lateral shift"> Crossbite with lateral shift<br>
-                <input type="checkbox" name="transverse" value="Scissor bite"> Scissor bite<br>
-                <input type="checkbox" name="transverse" value="Midline discrepancy"> Midline discrepancy<br>
-            </div>
+        <!-- Question 2 -->
+        <div class="question" id="question2">
+            <label>Skeletal Sagittal Relationship:</label>
+            <select id="skeletalSagittal" name="skeletalSagittal">
+                <option value="">Select an option</option>
+                <option value="Skeletal Class I">Skeletal Class I</option>
+                <option value="Skeletal Class II">Skeletal Class II</option>
+                <option value="Skeletal Class III">Skeletal Class III</option>
+            </select>
         </div>
 
-        <!-- Section 3: Space Analysis, Inclination, and Others -->
-        <div class="section">
-            <h3>Space Analysis & Others</h3>
-
-            <div class="question">
-                <label>Space Analysis:</label><br>
-                <input type="checkbox" name="space" value="Crowding"> Crowding<br>
-                <input type="checkbox" name="space" value="Spacing"> Spacing<br>
-                <input type="checkbox" name="space" value="Peg shaped lateral"> Peg shaped lateral<br>
-            </div>
-
-            <div class="question">
-                <label>Others:</label><br>
-                <input type="checkbox" name="others" value="Congenitally missing incisor"> Congenitally missing incisor<br>
-                <input type="checkbox" name="others" value="Supernumerary tooth"> Supernumerary tooth<br>
-                <input type="checkbox" name="others" value="Impacted Canine"> Impacted Canine<br>
-                <input type="checkbox" name="others" value="Thumb sucking habit"> Thumb sucking habit<br>
-                <input type="checkbox" name="others" value="TMD"> TMD<br>
-            </div>
-
-            <div class="question">
-                <label for="treatmentPlan">Treatment Plan:</label>
-                <textarea id="treatmentPlan" name="treatmentPlan" rows="4"></textarea>
-            </div>
+        <!-- Question 3 -->
+        <div class="question" id="question3">
+            <label>Dental Sagittal Relationship:</label>
+            <select id="dentalSagittal" name="dentalSagittal">
+                <option value="">Select an option</option>
+                <option value="Class I">Class I</option>
+                <option value="Class II relationship">Class II relationship</option>
+                <option value="Class III relationship">Class III relationship</option>
+            </select>
         </div>
-    </div>
 
-    <button type="button" onclick="showSummary()">Review Answers</button>
+        <!-- Question 4 -->
+        <div class="question" id="question4">
+            <label>Incisors Relationship:</label>
+            <select id="incisorsRelationship" name="incisorsRelationship">
+                <option value="">Select an option</option>
+                <option value="Anterior crossbite">Anterior crossbite</option>
+                <option value="Anterior crossbite with shift">Anterior crossbite with shift</option>
+                <option value="Large overjet">Large overjet</option>
+            </select>
+        </div>
 
-    <div id="summary" class="summary" style="display:none;">
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <button type="button" onclick="prevQuestion()">Previous</button>
+            <button type="button" onclick="nextQuestion()">Next</button>
+        </div>
+    </form>
+
+    <div id="summary" class="summary">
         <h3>Review Your Answers:</h3>
         <div id="summaryContent"></div>
         <button onclick="copySummary()">Copy Summary</button>
     </div>
+</div>
 
-    <script>
-        function showSummary() {
-            const summaryContent = document.getElementById('summaryContent');
-            const formData = new FormData(document.querySelector('form'));
-            summaryContent.innerHTML = '';
-            formData.forEach((value, key) => {
-                summaryContent.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
-            });
-            document.getElementById('summary').style.display = 'block';
-        }
+<script>
+    let currentQuestion = 1;
+    const totalQuestions = document.querySelectorAll('.question').length;
 
-        function copySummary() {
-            navigator.clipboard.writeText(document.getElementById('summaryContent').textContent).then(() => {
-                alert("Summary copied to clipboard!");
-            });
+    function showQuestion(index) {
+        document.querySelectorAll('.question').forEach((el, i) => {
+            el.classList.remove('active');
+            if (i === index - 1) {
+                el.classList.add('active');
+            }
+        });
+    }
+
+    function nextQuestion() {
+        if (currentQuestion < totalQuestions) {
+            currentQuestion++;
+            showQuestion(currentQuestion);
+        } else {
+            showSummary();
         }
-    </script>
+    }
+
+    function prevQuestion() {
+        if (currentQuestion > 1) {
+            currentQuestion--;
+            showQuestion(currentQuestion);
+        }
+    }
+
+    function showSummary() {
+        const summaryContent = document.getElementById('summaryContent');
+        const formData = new FormData(document.getElementById('surveyForm'));
+        summaryContent.innerHTML = '';
+        formData.forEach((value, key) => {
+            summaryContent.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
+        });
+        document.getElementById('summary').style.display = 'block';
+    }
+
+    function copySummary() {
+        navigator.clipboard.writeText(document.getElementById('summaryContent').textContent).then(() => {
+            alert("Summary copied to clipboard!");
+        });
+    }
+
+    showQuestion(currentQuestion);
+</script>
 </body>
 </html>
