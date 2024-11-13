@@ -370,8 +370,9 @@
 
         <!-- Question 4: Additional Notes with Review Box -->
         <div class="question" id="question4">
-            <label>Additional Notes:</label>
+            <label>Diagnosis plan:</label>
             <div class="fixed-box" id="answersBox"></div>
+            <label>Treatment Plan:</label>
             <textarea id="additionalNotes" name="Additional Notes" placeholder="Enter additional notes (or NA to pass)" style="height: 150px;"></textarea>
         </div>
 
@@ -380,7 +381,9 @@
             <h3>Final Review:</h3>
             <textarea id="summaryTextarea" readonly style="width: 100%; height: 200px;"></textarea>
             <button type="button" onclick="copySummary()">Copy</button>
+            <button id="startOverButton" type="button" onclick="startOver()">Start Over</button>
         </div>
+
 
         <!-- Navigation Buttons -->
         <div class="nav-buttons">
@@ -394,6 +397,14 @@
     let currentQuestion = 1;
     const totalQuestions = document.querySelectorAll('.question').length;
 
+    // function showQuestion(index) {
+    //     document.querySelectorAll('.question').forEach((el, i) => {
+    //         el.classList.remove('active');
+    //         if (i === index - 1) el.classList.add('active');
+    //     });
+    //     updateButtons();
+    // }
+
     function showQuestion(index) {
         document.querySelectorAll('.question').forEach((el, i) => {
             el.classList.remove('active');
@@ -401,6 +412,7 @@
         });
         updateButtons();
     }
+
 
     
     function validateCurrentQuestion() {
@@ -443,18 +455,16 @@
 
 function showReview() {
     const answersBox = document.getElementById('answersBox');
-    const form = document.getElementById('surveyForm');
+    const questions = document.querySelectorAll('.question');
     answersBox.innerHTML = '';
 
-    const questions = document.querySelectorAll('.question');
-    
     // Iterate over all question blocks
     questions.forEach(question => {
         const questionLabelElement = question.querySelector('label');
         if (!questionLabelElement) return; // Skip if no label found
-        
+
         const questionLabel = questionLabelElement.innerText.trim();
-        
+
         // Skip "Additional Notes" and "Others" questions
         if (questionLabel.includes("Additional Notes") || questionLabel.includes("Others")) return;
 
@@ -471,31 +481,37 @@ function showReview() {
                 }
             });
             if (selectedValues.length > 0) {
-                answersBox.innerHTML += `<p class="review-answer">${selectedValues.join(' | ')}</p>`;
-            } 
-            // else {
-            //     answersBox.innerHTML += `<p><strong>${questionLabel}</strong>: No selection</p>`;
-            // }
+                // Display key: value format if it's the File Number question
+                if (questionLabel.includes("File Number")) {
+                    answersBox.innerHTML += `<p class="review-answer">${questionLabel}: ${selectedValues.join(' | ')}</p>`;
+                } else {
+                    answersBox.innerHTML += `<p class="review-answer">${selectedValues.join(' | ')}</p>`;
+                }
+            }
         }
         // Handle dropdowns
         else if (select) {
             const selectedOption = select.options[select.selectedIndex].text;
             if (selectedOption !== "Select an option") {
-                answersBox.innerHTML += `<p class="review-answer">${selectedOption}</p>`;
-            } 
-            // else {
-            //     answersBox.innerHTML += `<p><strong>${questionLabel}</strong>: No selection</p>`;
-            // }
+                // Display key: value format if it's the File Number question
+                if (questionLabel.includes("File Number")) {
+                    answersBox.innerHTML += `<p class="review-answer">${questionLabel}: ${selectedOption}</p>`;
+                } else {
+                    answersBox.innerHTML += `<p class="review-answer">${selectedOption}</p>`;
+                }
+            }
         }
         // Handle text inputs and textareas
         else if (input) {
             const inputValue = input.value.trim();
             if (inputValue !== "") {
-                answersBox.innerHTML += `<p class="review-answer">${inputValue}</p>`;
-            } 
-            // else {
-            //     answersBox.innerHTML += `<p><strong>${questionLabel}</strong>: No input provided</p>`;
-            // }
+                // Display key: value format if it's the File Number question
+                if (questionLabel.includes("File Number")) {
+                    answersBox.innerHTML += `<p class="review-answer">${questionLabel}: ${inputValue}</p>`;
+                } else {
+                    answersBox.innerHTML += `<p class="review-answer">${inputValue}</p>`;
+                }
+            }
         }
     });
 }
@@ -508,9 +524,16 @@ function showReview() {
         const summaryTextarea = document.getElementById('summaryTextarea');
         const formData = new FormData(document.getElementById('surveyForm'));
         let summaryText = '';
+    
         formData.forEach((value, key) => {
-            summaryText += `${key}: ${value}\n`;
+            // Check if the key is "File Number"
+            if (key === "File Number") {
+                summaryText += `${key}: ${value}\n`;
+            } else {
+                summaryText += `${value}\n`;
+            }
         });
+    
         summaryTextarea.value = summaryText.trim();
     }
 
@@ -525,6 +548,23 @@ function showReview() {
         document.getElementById('prevButton').disabled = currentQuestion === 1;
         document.getElementById('nextButton').disabled = currentQuestion === totalQuestions;
     }
+    
+    function startOver() {
+          // Reset the form inputs
+          document.getElementById('surveyForm').reset();
+          
+          // Clear the summary text area
+          const summaryTextarea = document.getElementById('summaryTextarea');
+          if (summaryTextarea) {
+              summaryTextarea.value = "";
+          }
+      
+          // Reset the question counter
+          currentQuestion = 1;
+      
+          // Show the first question
+          showQuestion(currentQuestion);
+      }
 
     showQuestion(currentQuestion);
 </script>
