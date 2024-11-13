@@ -520,22 +520,51 @@ function showReview() {
 
 
 
-    function showSummary() {
-        const summaryTextarea = document.getElementById('summaryTextarea');
-        const formData = new FormData(document.getElementById('surveyForm'));
-        let summaryText = '';
+    // function showSummary() {
+    //     const summaryTextarea = document.getElementById('summaryTextarea');
+    //     const formData = new FormData(document.getElementById('surveyForm'));
+    //     let summaryText = '';
     
-        formData.forEach((value, key) => {
-            // Check if the key is "File Number"
-            if (key === "File Number") {
-                summaryText += `${key}: ${value}\n`;
-            } else {
-                summaryText += `${value}\n`;
+    //     formData.forEach((value, key) => {
+    //         // Check if the key is "File Number"
+    //         if (key === "File Number") {
+    //             summaryText += `${key}: ${value}\n`;
+    //         } else {
+    //             summaryText += `${value}\n`;
+    //         }
+    //     });
+    
+    //     summaryTextarea.value = summaryText.trim();
+    // }
+
+function showSummary() {
+    const summaryTextarea = document.getElementById('summaryTextarea');
+    const formData = new FormData(document.getElementById('surveyForm'));
+    let summaryText = '';
+    let diagnosisPlanAdded = false;
+    let treatmentPlanAdded = false;
+
+    formData.forEach((value, key) => {
+        // Check if the key is "File Number"
+        if (key === "File Number") {
+            summaryText += `${key}: ${value}\n`;
+            // Add "Diagnosis Plan" after the file number
+            summaryText += "----- Diagnosis Plan -----\n";
+            diagnosisPlanAdded = true;
+        } else if (key === "Additional Notes") {
+            // Add "Treatment Plan" before the "Additional Notes"
+            if (!treatmentPlanAdded) {
+                summaryText += "----- Treatment Plan -----\n";
+                treatmentPlanAdded = true;
             }
-        });
-    
-        summaryTextarea.value = summaryText.trim();
-    }
+            summaryText += `${value}\n`;
+        } else {
+            summaryText += `${value}\n`;
+        }
+    });
+
+    summaryTextarea.value = summaryText.trim();
+}
 
     function copySummary() {
         const summaryTextarea = document.getElementById('summaryTextarea');
