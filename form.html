@@ -18,7 +18,7 @@
             border-radius: 10px;
             padding: 20px;
             width: 400px;
-            max-height: 80vh;
+            max-height: 100vh;
             overflow-y: auto;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
@@ -56,6 +56,8 @@
             margin-bottom: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            width: 100%;
+
         }
         button {
             background-color: #007bff;
@@ -74,6 +76,10 @@
             display: flex;
             justify-content: space-between;
         }
+        .review-answer {
+        text-align: left;
+        margin: 10px 0;
+    }
     </style>
 </head>
 <body>
@@ -81,13 +87,30 @@
 <div class="container">
     <h2>Ortho Assessment Form</h2>
     <form id="surveyForm">
+      
+      
+         <!--Question 1: File Number -->
+        <!--<div class="question active" id="question1">-->
+        <!--    <label for="fileNumber">File Number:</label>-->
+        <!--    <input type="text" id="fileNumber" name="File Number" placeholder="Enter File Number" required>-->
+        <!--</div>-->
+
         <!-- Question 1: File Number -->
         <div class="question active" id="question1">
             <label for="fileNumber">File Number:</label>
-            <input type="text" id="fileNumber" name="File Number" placeholder="Enter File Number" required>
+            <input 
+                type="text" 
+                id="fileNumber" 
+                name="File Number" 
+                placeholder="Enter File Number" 
+                required 
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            >
         </div>
 
-        <!-- Question 2: Skeletal Sagittal Relationship -->
+
+
+         <!--Question 2: Skeletal Sagittal Relationship -->
         <div class="question" id="question2">
             <label>Skeletal Sagittal Relationship:</label>
             <select id="skeletalSagittal" name="Skeletal Sagittal Relationship" required>
@@ -98,56 +121,258 @@
             </select>
         </div>
 
-        <!-- Question 2: Skeletal Sagittal Relationship -->
-        <div class="question" id="question2">
-            <label>Skeletal Sagittal Relationship:</label>
-            <select id="skeletalSagittal" name="Skeletal Sagittal Relationship" required>
+         <!--Dental Sagittal Relationship Question -->
+        <div class="question" id="questionDentalSagittal">
+            <label>Dental Sagittal Relationship:</label>
+            <select id="dentalSagittal" name="Dental Sagittal Relationship" required>
                 <option value="">Select an option</option>
-                <option value="Skeletal Class I">Skeletal Class I</option>
-                <option value="Skeletal Class II">Skeletal Class II</option>
-                <option value="Skeletal Class III">Skeletal Class III</option>
+                <option value="Class I">Class I</option>
+                <option value="Class II relationship">Class II relationship</option>
+                <option value="Class III relationship">Class III relationship</option>
             </select>
         </div>
-        
-                <!-- Question 2: Skeletal Sagittal Relationship -->
-        <div class="question" id="question2">
-            <label>Skeletal Sagittal Relationship:</label>
-            <select id="skeletalSagittal" name="Skeletal Sagittal Relationship" required>
+
+        <div class="question" id="questionIncisorsRelationship">
+            <label>Incisors Relationship:</label>
+            <select id="incisorsRelationship" name="Incisors Relationship" required>
                 <option value="">Select an option</option>
-                <option value="Skeletal Class I">Skeletal Class I</option>
-                <option value="Skeletal Class II">Skeletal Class II</option>
-                <option value="Skeletal Class III">Skeletal Class III</option>
-            </select>
-        </div>
-        
-                <!-- Question 2: Skeletal Sagittal Relationship -->
-        <div class="question" id="question2">
-            <label>Skeletal Sagittal Relationship:</label>
-            <select id="skeletalSagittal" name="Skeletal Sagittal Relationship" required>
-                <option value="">Select an option</option>
-                <option value="Skeletal Class I">Skeletal Class I</option>
-                <option value="Skeletal Class II">Skeletal Class II</option>
-                <option value="Skeletal Class III">Skeletal Class III</option>
+                <option value="Anterior crossbite">Anterior crossbite</option>
+                <option value="Anterior crossbite with shift">Anterior crossbite with shift</option>
+                <option value="Large overjet">Large overjet</option>
             </select>
         </div>
         
         
-        <!-- Question 3: Multiple Choice Checkboxes -->
-        <div class="question" id="question3">
-            <label>Vertical Relationship (Select all that apply):</label>
-            <div>
-                <input type="checkbox" name="Vertical Relationship" value="Anterior Open Bite"> Anterior Open Bite<br>
-                <input type="checkbox" name="Vertical Relationship" value="Lateral Open Bite"> Lateral Open Bite<br>
-                <input type="checkbox" name="Vertical Relationship" value="Deep Bite"> Deep Bite<br>
-                <input type="checkbox" name="Vertical Relationship" value="Cross Bite"> Cross Bite<br>
+         <!--Question: Vertical Relationship (Select one or more) -->
+        <div class="question" id="questionVerticalRelationshipMultiple">
+            <label style="display: block; text-align: left; margin-bottom: 20px;">
+                Vertical Relationship (Select one or more):
+            </label>
+            <div style="text-align: left;">
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="anteriorOpenBite" name="Vertical Relationship" value="Anterior Open Bite">
+                    <label for="anteriorOpenBite" style="margin-left: 8px;">Anterior open bite</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="lateralOpenBite" name="Vertical Relationship" value="Lateral Open Bite (right or left)">
+                    <label for="lateralOpenBite" style="margin-left: 8px;">Lateral open bite (right or left)</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="bilateralOpenBite" name="Vertical Relationship" value="Bilateral Open Bite">
+                    <label for="bilateralOpenBite" style="margin-left: 8px;">Bilateral open bite</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="deepBite" name="Vertical Relationship" value="Deep Bite">
+                    <label for="deepBite" style="margin-left: 8px;">Deep bite</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="deepBiteGingivalContact" name="Vertical Relationship" value="Deep Bite with Gingival Contact">
+                    <label for="deepBiteGingivalContact" style="margin-left: 8px;">Deep bite with gingival contact</label>
+                </div>
             </div>
         </div>
+
+
+         <!--Question: Transverse Relationship (Select one or more) -->
+        <div class="question" id="questionTransverseRelationship">
+            <label style="display: block; text-align: left; margin-bottom: 20px;">
+                Transverse Relationship (Select one or more):
+            </label>
+            <div style="text-align: left;">
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="crossBite" name="Transverse Relationship" value="Cross Bite">
+                    <label for="crossBite" style="margin-left: 8px;">Cross bite</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="crossBiteShift" name="Transverse Relationship" value="Crossbite with Lateral Shift">
+                    <label for="crossBiteShift" style="margin-left: 8px;">Crossbite with lateral shift</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="scissorBite" name="Transverse Relationship" value="Scissor Bite">
+                    <label for="scissorBite" style="margin-left: 8px;">Scissor bite</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="midlineDiscrepancy" name="Transverse Relationship" value="Midline Discrepancy">
+                    <label for="midlineDiscrepancy" style="margin-left: 8px;">Midline discrepancy</label>
+                </div>
+            </div>
+        </div>
+
+         <!--Question: Incisors Inclination (Select one or more) -->
+        <div class="question" id="questionIncisorsInclination">
+            <label style="display: block; text-align: left; margin-bottom: 20px;">
+                Incisors Inclination (Select one or more):
+            </label>
+            <div style="text-align: left;">
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="proclinedUpperIncisors" name="Incisors Inclination" value="Proclined Upper Incisors">
+                    <label for="proclinedUpperIncisors" style="margin-left: 8px;">Proclined upper incisors</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="retroclinedUpperIncisors" name="Incisors Inclination" value="Retroclined Upper Incisors">
+                    <label for="retroclinedUpperIncisors" style="margin-left: 8px;">Retroclined upper incisors</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="protrudedUpperIncisors" name="Incisors Inclination" value="Protruded Upper Incisors">
+                    <label for="protrudedUpperIncisors" style="margin-left: 8px;">Protruded upper incisors</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="retrudedUpperIncisors" name="Incisors Inclination" value="Retruded Upper Incisors">
+                    <label for="retrudedUpperIncisors" style="margin-left: 8px;">Retruded upper incisors</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="proclinedLowerIncisors" name="Incisors Inclination" value="Proclined Lower Incisors">
+                    <label for="proclinedLowerIncisors" style="margin-left: 8px;">Proclined lower incisors</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="retroclinedLowerIncisors" name="Incisors Inclination" value="Retroclined Lower Incisors">
+                    <label for="retroclinedLowerIncisors" style="margin-left: 8px;">Retroclined lower incisors</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="protrudedLowerIncisors" name="Incisors Inclination" value="Protruded Lower Incisors">
+                    <label for="protrudedLowerIncisors" style="margin-left: 8px;">Protruded lower incisors</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="retrudedLowerIncisors" name="Incisors Inclination" value="Retruded Lower Incisors">
+                    <label for="retrudedLowerIncisors" style="margin-left: 8px;">Retruded lower incisors</label>
+                </div>
+            </div>
+        </div>
+
+         <!--Question: Space Analysis (Select one or more) -->
+        <div class="question" id="questionSpaceAnalysis">
+            <label style="display: block; text-align: left; margin-bottom: 20px;">
+                Space Analysis (Select one or more):
+            </label>
+            <div style="text-align: left;">
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="crowding" name="Space Analysis" value="Crowding">
+                    <label for="crowding" style="margin-left: 8px;">Crowding</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="spacing" name="Space Analysis" value="Spacing">
+                    <label for="spacing" style="margin-left: 8px;">Spacing</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="pegShapedLateral" name="Space Analysis" value="Peg Shaped Lateral">
+                    <label for="pegShapedLateral" style="margin-left: 8px;">Peg shaped lateral</label>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Question: Others (Select one or more) -->
+        <div class="question" id="questionOthers">
+            <label style="display: block; text-align: left; margin-bottom: 20px;">
+                Others (Select one or more):
+            </label>
+            <div style="text-align: left;">
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="congenitallyMissingIncisor" name="Others" value="Congenitally missing incisor">
+                    <label for="congenitallyMissingIncisor" style="margin-left: 8px;">Congenitally missing incisor</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="congenitallyMissingPremolar" name="Others" value="Congenitally missing premolar">
+                    <label for="congenitallyMissingPremolar" style="margin-left: 8px;">Congenitally missing premolar</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="supernumeraryTooth" name="Others" value="Supernumerary tooth">
+                    <label for="supernumeraryTooth" style="margin-left: 8px;">Supernumerary tooth</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="enamelDistortion" name="Others" value="Enamel distortion">
+                    <label for="enamelDistortion" style="margin-left: 8px;">Enamel distortion</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="impactedCanine" name="Others" value="Impacted Canine">
+                    <label for="impactedCanine" style="margin-left: 8px;">Impacted Canine</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="impactedTooth" name="Others" value="Impacted tooth">
+                    <label for="impactedTooth" style="margin-left: 8px;">Impacted tooth</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="ectopicEruption" name="Others" value="Ectopic eruption">
+                    <label for="ectopicEruption" style="margin-left: 8px;">Ectopic eruption</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="infraPosition" name="Others" value="Infra-position">
+                    <label for="infraPosition" style="margin-left: 8px;">Infra-position</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="rotation" name="Others" value="Rotation">
+                    <label for="rotation" style="margin-left: 8px;">Rotation</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="tipping" name="Others" value="Tipping">
+                    <label for="tipping" style="margin-left: 8px;">Tipping</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="transposition" name="Others" value="Transposition">
+                    <label for="transposition" style="margin-left: 8px;">Transposition</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="incompetentLips" name="Others" value="Incompetent lips">
+                    <label for="incompetentLips" style="margin-left: 8px;">Incompetent lips</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="mouthBreathing" name="Others" value="Mouth breathing">
+                    <label for="mouthBreathing" style="margin-left: 8px;">Mouth breathing</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="abnormalSwallowing" name="Others" value="Abnormal swallowing">
+                    <label for="abnormalSwallowing" style="margin-left: 8px;">Abnormal swallowing</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="tonguePress" name="Others" value="Tongue press">
+                    <label for="tonguePress" style="margin-left: 8px;">Tongue press</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="paraFunctionalHabit" name="Others" value="Para functional habit">
+                    <label for="paraFunctionalHabit" style="margin-left: 8px;">Para functional habit</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="bruxism" name="Others" value="Bruxism">
+                    <label for="bruxism" style="margin-left: 8px;">Bruxism</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="thumbSucking" name="Others" value="Thumb sucking habit">
+                    <label for="thumbSucking" style="margin-left: 8px;">Thumb sucking habit</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="tmd" name="Others" value="TMD">
+                    <label for="tmd" style="margin-left: 8px;">TMD</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="caries" name="Others" value="Caries">
+                    <label for="caries" style="margin-left: 8px;">Caries</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="abrasion" name="Others" value="Abrasion">
+                    <label for="abrasion" style="margin-left: 8px;">Abrasion</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="trauma" name="Others" value="Trauma">
+                    <label for="trauma" style="margin-left: 8px;">Trauma</label>
+                </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="frenulumAttachment" name="Others" value="Frenulum attachment">
+                    <label for="frenulumAttachment" style="margin-left: 8px;">Frenulum attachment</label>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
 
         <!-- Question 4: Additional Notes with Review Box -->
         <div class="question" id="question4">
             <label>Additional Notes:</label>
             <div class="fixed-box" id="answersBox"></div>
-            <textarea id="additionalNotes" name="Additional Notes" placeholder="Enter additional notes..." style="height: 150px;"></textarea>
+            <textarea id="additionalNotes" name="Additional Notes" placeholder="Enter additional notes (or NA to pass)" style="height: 150px;"></textarea>
         </div>
 
         <!-- Final Summary -->
@@ -159,8 +384,8 @@
 
         <!-- Navigation Buttons -->
         <div class="nav-buttons">
-            <button id="prevButton" type="button" onclick="prevQuestion()">Previous</button>
             <button id="nextButton" type="button" onclick="nextQuestion()">Next</button>
+            <button id="prevButton" type="button" onclick="prevQuestion()">Previous</button>
         </div>
     </form>
 </div>
@@ -177,10 +402,28 @@
         updateButtons();
     }
 
+    
     function validateCurrentQuestion() {
-        const currentElement = document.querySelector(`.question.active input, .question.active select, .question.active textarea`);
+        const currentQuestionElement = document.querySelector('.question.active');
+        
+        // Check for checkbox groups
+        const checkboxes = currentQuestionElement.querySelectorAll('input[type="checkbox"]');
+        if (checkboxes.length > 0) {
+            // Ensure at least one checkbox is selected
+            const checked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            if (!checked) {
+                return false;
+            }
+            return true;
+        }
+        
+        // Validate other input types (text, select, textarea)
+        const currentElement = currentQuestionElement.querySelector('input, select, textarea');
         return currentElement && currentElement.value.trim() !== "";
     }
+
+
+
 
     function nextQuestion() {
         if (validateCurrentQuestion()) {
@@ -198,18 +441,68 @@
         showQuestion(currentQuestion);
     }
 
-    function showReview() {
-        const answersBox = document.getElementById('answersBox');
-        const formData = new FormData(document.getElementById('surveyForm'));
-        answersBox.innerHTML = '';
+function showReview() {
+    const answersBox = document.getElementById('answersBox');
+    const form = document.getElementById('surveyForm');
+    answersBox.innerHTML = '';
 
-        formData.forEach((value, key) => {
-            // Exclude "Additional Notes" from the review
-            if (key !== 'Additional Notes') {
-                answersBox.innerHTML += `<p><strong>${key}:</strong> ${value}</p>`;
-            }
-        });
-    }
+    const questions = document.querySelectorAll('.question');
+    
+    // Iterate over all question blocks
+    questions.forEach(question => {
+        const questionLabelElement = question.querySelector('label');
+        if (!questionLabelElement) return; // Skip if no label found
+        
+        const questionLabel = questionLabelElement.innerText.trim();
+        
+        // Skip "Additional Notes" and "Others" questions
+        if (questionLabel.includes("Additional Notes") || questionLabel.includes("Others")) return;
+
+        const checkboxes = question.querySelectorAll('input[type="checkbox"]');
+        const select = question.querySelector('select');
+        const input = question.querySelector('input[type="text"], textarea');
+        let selectedValues = [];
+
+        // Handle checkboxes
+        if (checkboxes.length > 0) {
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    selectedValues.push(checkbox.value);
+                }
+            });
+            if (selectedValues.length > 0) {
+                answersBox.innerHTML += `<p class="review-answer">${selectedValues.join(' | ')}</p>`;
+            } 
+            // else {
+            //     answersBox.innerHTML += `<p><strong>${questionLabel}</strong>: No selection</p>`;
+            // }
+        }
+        // Handle dropdowns
+        else if (select) {
+            const selectedOption = select.options[select.selectedIndex].text;
+            if (selectedOption !== "Select an option") {
+                answersBox.innerHTML += `<p class="review-answer">${selectedOption}</p>`;
+            } 
+            // else {
+            //     answersBox.innerHTML += `<p><strong>${questionLabel}</strong>: No selection</p>`;
+            // }
+        }
+        // Handle text inputs and textareas
+        else if (input) {
+            const inputValue = input.value.trim();
+            if (inputValue !== "") {
+                answersBox.innerHTML += `<p class="review-answer">${inputValue}</p>`;
+            } 
+            // else {
+            //     answersBox.innerHTML += `<p><strong>${questionLabel}</strong>: No input provided</p>`;
+            // }
+        }
+    });
+}
+
+
+
+
 
     function showSummary() {
         const summaryTextarea = document.getElementById('summaryTextarea');
