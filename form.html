@@ -200,6 +200,10 @@
                     <input type="checkbox" id="midlineDiscrepancy" name="Transverse Relationship" value="Midline Discrepancy">
                     <label for="midlineDiscrepancy" style="margin-left: 8px;">Midline discrepancy</label>
                 </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="normalTransverse" name="Transverse Relationship" value="Normal">
+                    <label for="normalTransverse" style="margin-left: 8px;">Normal</label>
+                </div>
             </div>
         </div>
 
@@ -368,6 +372,10 @@
                     <input type="checkbox" id="frenulumAttachment" name="Others" value="Frenulum attachment">
                     <label for="frenulumAttachment" style="margin-left: 8px;">Frenulum attachment</label>
                 </div>
+                <div style="display: flex; align-items: baseline; margin-bottom: 8px;">
+                    <input type="checkbox" id="noneOthers" name="Others" value="None">
+                    <label for="noneOthers" style="margin-left: 8px;">None</label>
+                </div>
             </div>
         </div>
 
@@ -379,7 +387,7 @@
 
         <!-- Question 4: Additional Notes with Review Box -->
         <div class="question" id="question4">
-            <label>Diagnosis plan:</label>
+            <label>Diagnosis:</label>
             <div class="fixed-box" id="answersBox"></div>
             <label>Treatment Plan:</label>
             <textarea id="additionalNotes" name="Additional Notes" placeholder="Enter additional notes (or NA to pass)" style="height: 150px;"></textarea>
