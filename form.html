@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ortho Assessment Form</title>
+    <title>Dr. Algharbi’s Orthodontics assessment form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -85,7 +85,7 @@
 <body>
 
 <div class="container">
-    <h2>Ortho Assessment Form</h2>
+    <h2>Dr. Algharbi’s Orthodontics assessment form</h2>
     <form id="surveyForm">
       
       
@@ -404,12 +404,17 @@
 
         <!-- Navigation Buttons -->
         <div class="nav-buttons">
-            <button id="nextButton" type="button" onclick="nextQuestion()">Next</button>
             <button id="prevButton" type="button" onclick="prevQuestion()">Previous</button>
+            <button id="nextButton" type="button" onclick="nextQuestion()">Next</button>
         </div>
     </form>
 </div>
-
+    
+    <!-- Footer -->
+    <footer style="text-align: center; margin-top: 20px; font-size: 14px; color: #666;">
+        Designed with love ❤️ by Dr. Algharbi
+    </footer>
+    
 <script>
     let currentQuestion = 1;
     const totalQuestions = document.querySelectorAll('.question').length;
